@@ -1,0 +1,47 @@
+$ helm upgrade --install poc-mysql bitnami/mysql \
+    --namespace asiayo \
+    --create-namespace \
+    -f values.yaml
+Release "poc-mysql" does not exist. Installing it now.
+NAME: poc-mysql
+LAST DEPLOYED: Thu Dec 19 15:16:50 2024
+NAMESPACE: asiayo
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+CHART NAME: mysql
+CHART VERSION: 12.2.0
+APP VERSION: 8.4.3
+
+Did you know there are enterprise versions of the Bitnami catalog? For enhanced secure software supply chain features, unlimited pulls from Docker, LTS support, or application customization, see Bitnami Premium or Tanzu Application Catalog. See https://www.arrow.com/globalecs/na/vendors/bitnami for more information.
+
+** Please be patient while the chart is being deployed **
+
+Tip:
+
+  Watch the deployment status using the command: kubectl get pods -w --namespace asiayo
+
+Services:
+
+  echo Primary: poc-asiayo-mysql-writer.asiayo.svc.cluster.local:3306
+  echo Secondary: poc-asiayo-mysql-reader.asiayo.svc.cluster.local:3306
+
+Execute the following to get the administrator credentials:
+
+  echo Username: root
+  MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace asiayo poc-asiayo-mysql -o jsonpath="{.data.mysql-root-password}" | base64 -d)
+
+To connect to your database:
+
+  1. Run a pod that you can use as a client:
+
+      kubectl run poc-asiayo-mysql-client --rm --tty -i --restart='Never' --image  docker.io/bitnami/mysql:8.4.3-debian-12-r4 --namespace asiayo --env MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD --command -- bash
+
+  2. To connect to primary service (read/write):
+
+      mysql -h poc-asiayo-mysql-writer.asiayo.svc.cluster.local -uroot -p"$MYSQL_ROOT_PASSWORD"
+
+  3. To connect to secondary service (read-only):
+
+      mysql -h poc-asiayo-mysql-reader.asiayo.svc.cluster.local -uroot -p"$MYSQL_ROOT_PASSWORD"

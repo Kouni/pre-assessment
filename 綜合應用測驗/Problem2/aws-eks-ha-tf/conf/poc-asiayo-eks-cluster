@@ -1,0 +1,29 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJUk0rSG9hZXMzZ2t3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TkRFeU1Ua3dOVFE0TVRsYUZ3MHpOREV5TVRjd05UVXpNVGxhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUMrd3JFcGN6OHkwRG5neHJpNTduMnIwMUJCcENFMjVBS2ZJVXdTVlYvcDFiNEFVaTRkd05YWFFTMmMKYVUvejlONDdGOWVvY0RvMzlCZysvNkhuNlh4MHA0RC9QRm9iemRXdUNNWVpuWVM1WkE3Vno0R0VPSUVTengvLworWVJDRklsdW45R0JnR2ZTVHVSUjBkY3NWb3ovRVlOcnM2eDlyMzNHd1pTLzAzTXlJVlpZbUlPbE9ZaWFCc1pYClZ5SkVpSkZZZUpYM0E3bFV5MnQ2anUwWXp5d3hyb1NPRHN1TEd3M1dmd0oySUdtR3FpemdwQlM3RWN5cXBqMGIKNTRoS1Fsb1FId1E5MW1PYXNMOFd6RHVTbXFwMU5majF4Mk1NTU9aOXRsb1NNWDJxbDhlQy82c29JSWFGZUNUbQpvc0xTekZzZC8wY0JiYWNtRXRPQit0dFQ5MG5iQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJRdE1ZdlVVdmpUZW5CZDRvNE5rUTlWdDN0RW9EQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQXczUWpORnhIcwpNa2JmTUh0M0ZFNnRGYUhQSUlnSlBFL3Y5NzhzZ2p0Q1NCeFJsYndyRExYZml5Zjl6MVB1Q2kyLytvVmpCYmdXCkhnUHZ6MFRPb1FBYnphTDJTZlkyZDRjeU9CcUIzalZ0VzkrejJzemtHREZrZUdjczUreUs0TXlmcUtHUGlrWEEKaVQ1UTVSQjROeHBkeVRZREozbFdRZ1VBa3FMcHBLREFIQTVOYmJ2bmdFQjRzVW9yV0NrY0Rza3kxVEJlSVdITgptT21CVHZieERGMnRoQUNUM2g2cTNiZjJiNGFLa1huVzNSYVkrQVdIU0RYMmkzYlg0clJWRHloc3o0a1NWMWNsCkIwaG02Mk5oNXZWRjF2aWZBZmpXQmN5NWtxN205dW13cW01TVNaU0grRVhqUFkzYnVvY3BJT2FuK2ROMkNhMjcKeHNyVUl5OFVUb2VlCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    server: https://D82EA76AC1A35813770D1E9F0B6C8EF9.gr7.us-east-1.eks.amazonaws.com
+  name: arn:aws:eks:us-east-1:969891756697:cluster/poc-asiayo-eks-cluster
+contexts:
+- context:
+    cluster: arn:aws:eks:us-east-1:969891756697:cluster/poc-asiayo-eks-cluster
+    user: arn:aws:eks:us-east-1:969891756697:cluster/poc-asiayo-eks-cluster
+  name: arn:aws:eks:us-east-1:969891756697:cluster/poc-asiayo-eks-cluster
+current-context: arn:aws:eks:us-east-1:969891756697:cluster/poc-asiayo-eks-cluster
+kind: Config
+preferences: {}
+users:
+- name: arn:aws:eks:us-east-1:969891756697:cluster/poc-asiayo-eks-cluster
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - --region
+      - us-east-1
+      - eks
+      - get-token
+      - --cluster-name
+      - poc-asiayo-eks-cluster
+      - --output
+      - json
+      command: aws

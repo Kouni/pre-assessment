@@ -1,0 +1,2575 @@
+$ terraform plan -out=./tf_out/tfplan
+module.eks.data.aws_caller_identity.current: Reading...
+module.eks.data.aws_partition.current: Reading...
+module.eks.module.kms.data.aws_partition.current[0]: Reading...
+module.eks.data.aws_partition.current: Read complete after 0s [id=aws]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Reading...
+module.eks.module.kms.data.aws_partition.current[0]: Read complete after 0s [id=aws]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Reading...
+module.eks.module.kms.data.aws_caller_identity.current[0]: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Read complete after 0s [id=aws]
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2764486067]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
+module.eks.data.aws_caller_identity.current: Read complete after 0s [id=969891756697]
+module.eks.data.aws_iam_session_context.current: Reading...
+module.eks.data.aws_iam_session_context.current: Read complete after 0s [id=arn:aws:iam::969891756697:user/kouni]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.eks.module.kms.data.aws_caller_identity.current[0]: Read complete after 1s [id=969891756697]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # module.eks.data.tls_certificate.this[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "tls_certificate" "this" {
+      + certificates = (known after apply)
+      + id           = (known after apply)
+      + url          = (known after apply)
+    }
+
+  # module.eks.aws_cloudwatch_log_group.this[0] will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/aws/eks/poc-asiayo-eks-cluster/cluster"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 90
+      + skip_destroy      = false
+      + tags              = {
+          + "Environment" = "poc"
+          + "Name"        = "/aws/eks/poc-asiayo-eks-cluster/cluster"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all          = {
+          + "Environment" = "poc"
+          + "Name"        = "/aws/eks/poc-asiayo-eks-cluster/cluster"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+    }
+
+  # module.eks.aws_ec2_tag.cluster_primary_security_group["Environment"] will be created
+  + resource "aws_ec2_tag" "cluster_primary_security_group" {
+      + id          = (known after apply)
+      + key         = "Environment"
+      + resource_id = (known after apply)
+      + value       = "poc"
+    }
+
+  # module.eks.aws_ec2_tag.cluster_primary_security_group["Project"] will be created
+  + resource "aws_ec2_tag" "cluster_primary_security_group" {
+      + id          = (known after apply)
+      + key         = "Project"
+      + resource_id = (known after apply)
+      + value       = "asiayo"
+    }
+
+  # module.eks.aws_ec2_tag.cluster_primary_security_group["Team"] will be created
+  + resource "aws_ec2_tag" "cluster_primary_security_group" {
+      + id          = (known after apply)
+      + key         = "Team"
+      + resource_id = (known after apply)
+      + value       = "platform"
+    }
+
+  # module.eks.aws_eks_cluster.this[0] will be created
+  + resource "aws_eks_cluster" "this" {
+      + arn                           = (known after apply)
+      + bootstrap_self_managed_addons = true
+      + certificate_authority         = (known after apply)
+      + cluster_id                    = (known after apply)
+      + created_at                    = (known after apply)
+      + enabled_cluster_log_types     = [
+          + "api",
+          + "audit",
+          + "authenticator",
+        ]
+      + endpoint                      = (known after apply)
+      + id                            = (known after apply)
+      + identity                      = (known after apply)
+      + name                          = "poc-asiayo-eks-cluster"
+      + platform_version              = (known after apply)
+      + role_arn                      = (known after apply)
+      + status                        = (known after apply)
+      + tags                          = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all                      = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + version                       = "1.31"
+
+      + encryption_config {
+          + resources = [
+              + "secrets",
+            ]
+
+          + provider {
+              + key_arn = (known after apply)
+            }
+        }
+
+      + kubernetes_network_config {
+          + ip_family         = (known after apply)
+          + service_ipv4_cidr = (known after apply)
+          + service_ipv6_cidr = (known after apply)
+        }
+
+      + timeouts {}
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + endpoint_private_access   = true
+          + endpoint_public_access    = true
+          + public_access_cidrs       = [
+              + "0.0.0.0/0",
+            ]
+          + security_group_ids        = (known after apply)
+          + subnet_ids                = (known after apply)
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+  # module.eks.aws_iam_openid_connect_provider.oidc_provider[0] will be created
+  + resource "aws_iam_openid_connect_provider" "oidc_provider" {
+      + arn             = (known after apply)
+      + client_id_list  = [
+          + "sts.amazonaws.com",
+        ]
+      + id              = (known after apply)
+      + tags            = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-eks-cluster-eks-irsa"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all        = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-eks-cluster-eks-irsa"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + thumbprint_list = (known after apply)
+      + url             = (known after apply)
+    }
+
+  # module.eks.aws_iam_policy.cluster_encryption[0] will be created
+  + resource "aws_iam_policy" "cluster_encryption" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Cluster encryption policy to allow cluster role to utilize CMK provided"
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = "poc-asiayo-eks-cluster-cluster-ClusterEncryption"
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all         = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+    }
+
+  # module.eks.aws_iam_role.this[0] will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "eks.amazonaws.com"
+                        }
+                      + Sid       = "EKSClusterAssumeRole"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = true
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "poc-asiayo-eks-cluster-cluster-"
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all              = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy {
+          + name   = "poc-asiayo-eks-cluster-cluster"
+          + policy = jsonencode(
+                {
+                  + Statement = [
+                      + {
+                          + Action   = [
+                              + "logs:CreateLogGroup",
+                            ]
+                          + Effect   = "Deny"
+                          + Resource = "*"
+                        },
+                    ]
+                  + Version   = "2012-10-17"
+                }
+            )
+        }
+    }
+
+  # module.eks.aws_iam_role_policy_attachment.cluster_encryption[0] will be created
+  + resource "aws_iam_role_policy_attachment" "cluster_encryption" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = (known after apply)
+    }
+
+  # module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+      + role       = (known after apply)
+    }
+
+  # module.eks.aws_iam_role_policy_attachment.this["AmazonEKSVPCResourceController"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+      + role       = (known after apply)
+    }
+
+  # module.eks.aws_security_group.cluster[0] will be created
+  + resource "aws_security_group" "cluster" {
+      + arn                    = (known after apply)
+      + description            = "EKS cluster security group"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "poc-asiayo-eks-cluster-cluster-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-eks-cluster-cluster"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all               = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-eks-cluster-cluster"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.eks.aws_security_group.node[0] will be created
+  + resource "aws_security_group" "node" {
+      + arn                    = (known after apply)
+      + description            = "EKS node shared security group"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "poc-asiayo-eks-cluster-node-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment"                                  = "poc"
+          + "Name"                                         = "poc-asiayo-eks-cluster-node"
+          + "Project"                                      = "asiayo"
+          + "Team"                                         = "platform"
+          + "kubernetes.io/cluster/poc-asiayo-eks-cluster" = "owned"
+        }
+      + tags_all               = {
+          + "Environment"                                  = "poc"
+          + "Name"                                         = "poc-asiayo-eks-cluster-node"
+          + "Project"                                      = "asiayo"
+          + "Team"                                         = "platform"
+          + "kubernetes.io/cluster/poc-asiayo-eks-cluster" = "owned"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.eks.aws_security_group_rule.cluster["ingress_nodes_443"] will be created
+  + resource "aws_security_group_rule" "cluster" {
+      + description              = "Node groups to cluster API"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["egress_all"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "Allow all egress"
+      + from_port                = 0
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_cluster_443"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Cluster API to node groups"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Cluster API to node 4443/tcp webhook"
+      + from_port                = 4443
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 4443
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Cluster API to node 6443/tcp webhook"
+      + from_port                = 6443
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 6443
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Cluster API to node 8443/tcp webhook"
+      + from_port                = 8443
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 8443
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Cluster API to node 9443/tcp webhook"
+      + from_port                = 9443
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 9443
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Cluster API to node kubelets"
+      + from_port                = 10250
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 10250
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Node to node ingress on ephemeral ports"
+      + from_port                = 1025
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 65535
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Node to node CoreDNS"
+      + from_port                = 53
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 53
+      + type                     = "ingress"
+    }
+
+  # module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"] will be created
+  + resource "aws_security_group_rule" "node" {
+      + description              = "Node to node CoreDNS UDP"
+      + from_port                = 53
+      + id                       = (known after apply)
+      + prefix_list_ids          = []
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 53
+      + type                     = "ingress"
+    }
+
+  # module.eks.time_sleep.this[0] will be created
+  + resource "time_sleep" "this" {
+      + create_duration = "30s"
+      + id              = (known after apply)
+      + triggers        = {
+          + "cluster_certificate_authority_data" = (known after apply)
+          + "cluster_endpoint"                   = (known after apply)
+          + "cluster_name"                       = "poc-asiayo-eks-cluster"
+          + "cluster_version"                    = "1.31"
+        }
+    }
+
+  # module.vpc.aws_default_network_acl.this[0] will be created
+  + resource "aws_default_network_acl" "this" {
+      + arn                    = (known after apply)
+      + default_network_acl_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + tags                   = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-default"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all               = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-default"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id                 = (known after apply)
+
+      + egress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+        }
+      + egress {
+          + action     = "allow"
+          + cidr_block = "0.0.0.0/0"
+          + from_port  = 0
+          + protocol   = "-1"
+          + rule_no    = 100
+          + to_port    = 0
+        }
+
+      + ingress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+        }
+      + ingress {
+          + action     = "allow"
+          + cidr_block = "0.0.0.0/0"
+          + from_port  = 0
+          + protocol   = "-1"
+          + rule_no    = 100
+          + to_port    = 0
+        }
+    }
+
+  # module.vpc.aws_default_route_table.default[0] will be created
+  + resource "aws_default_route_table" "default" {
+      + arn                    = (known after apply)
+      + default_route_table_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + route                  = (known after apply)
+      + tags                   = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-default"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all               = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-default"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id                 = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+          + update = "5m"
+        }
+    }
+
+  # module.vpc.aws_default_security_group.this[0] will be created
+  + resource "aws_default_security_group" "this" {
+      + arn                    = (known after apply)
+      + description            = (known after apply)
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-default"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all               = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-default"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpc.aws_eip.nat[0] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-us-east-1a"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all             = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-us-east-1a"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # module.vpc.aws_internet_gateway.this[0] will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.vpc.aws_nat_gateway.this[0] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-us-east-1a"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all                           = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-us-east-1a"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+    }
+
+  # module.vpc.aws_route.private_nat_gateway[0] will be created
+  + resource "aws_route" "private_nat_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # module.vpc.aws_route.public_internet_gateway[0] will be created
+  + resource "aws_route" "public_internet_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # module.vpc.aws_route_table.intra[0] will be created
+  + resource "aws_route_table" "intra" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all         = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table.private[0] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-private"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all         = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-private"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table.public[0] will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-public"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all         = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-public"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.intra[0] will be created
+  + resource "aws_route_table_association" "intra" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.intra[1] will be created
+  + resource "aws_route_table_association" "intra" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.intra[2] will be created
+  + resource "aws_route_table_association" "intra" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private[2] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[2] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.intra[0] will be created
+  + resource "aws_subnet" "intra" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.7.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra-us-east-1a"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+          + "Tier"        = "Isolated"
+        }
+      + tags_all                                       = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra-us-east-1a"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+          + "Tier"        = "Isolated"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.intra[1] will be created
+  + resource "aws_subnet" "intra" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.8.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra-us-east-1b"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+          + "Tier"        = "Isolated"
+        }
+      + tags_all                                       = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra-us-east-1b"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+          + "Tier"        = "Isolated"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.intra[2] will be created
+  + resource "aws_subnet" "intra" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.9.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra-us-east-1c"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+          + "Tier"        = "Isolated"
+        }
+      + tags_all                                       = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc-intra-us-east-1c"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+          + "Tier"        = "Isolated"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment"                     = "poc"
+          + "Name"                            = "poc-asiayo-vpc-private-us-east-1a"
+          + "Project"                         = "asiayo"
+          + "Team"                            = "platform"
+          + "Tier"                            = "Private"
+          + "kubernetes.io/role/internal-elb" = "1"
+        }
+      + tags_all                                       = {
+          + "Environment"                     = "poc"
+          + "Name"                            = "poc-asiayo-vpc-private-us-east-1a"
+          + "Project"                         = "asiayo"
+          + "Team"                            = "platform"
+          + "Tier"                            = "Private"
+          + "kubernetes.io/role/internal-elb" = "1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment"                     = "poc"
+          + "Name"                            = "poc-asiayo-vpc-private-us-east-1b"
+          + "Project"                         = "asiayo"
+          + "Team"                            = "platform"
+          + "Tier"                            = "Private"
+          + "kubernetes.io/role/internal-elb" = "1"
+        }
+      + tags_all                                       = {
+          + "Environment"                     = "poc"
+          + "Name"                            = "poc-asiayo-vpc-private-us-east-1b"
+          + "Project"                         = "asiayo"
+          + "Team"                            = "platform"
+          + "Tier"                            = "Private"
+          + "kubernetes.io/role/internal-elb" = "1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private[2] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.3.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment"                     = "poc"
+          + "Name"                            = "poc-asiayo-vpc-private-us-east-1c"
+          + "Project"                         = "asiayo"
+          + "Team"                            = "platform"
+          + "Tier"                            = "Private"
+          + "kubernetes.io/role/internal-elb" = "1"
+        }
+      + tags_all                                       = {
+          + "Environment"                     = "poc"
+          + "Name"                            = "poc-asiayo-vpc-private-us-east-1c"
+          + "Project"                         = "asiayo"
+          + "Team"                            = "platform"
+          + "Tier"                            = "Private"
+          + "kubernetes.io/role/internal-elb" = "1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.4.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment"            = "poc"
+          + "Name"                   = "poc-asiayo-vpc-public-us-east-1a"
+          + "Project"                = "asiayo"
+          + "Team"                   = "platform"
+          + "Tier"                   = "Public"
+          + "kubernetes.io/role/elb" = "1"
+        }
+      + tags_all                                       = {
+          + "Environment"            = "poc"
+          + "Name"                   = "poc-asiayo-vpc-public-us-east-1a"
+          + "Project"                = "asiayo"
+          + "Team"                   = "platform"
+          + "Tier"                   = "Public"
+          + "kubernetes.io/role/elb" = "1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.5.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment"            = "poc"
+          + "Name"                   = "poc-asiayo-vpc-public-us-east-1b"
+          + "Project"                = "asiayo"
+          + "Team"                   = "platform"
+          + "Tier"                   = "Public"
+          + "kubernetes.io/role/elb" = "1"
+        }
+      + tags_all                                       = {
+          + "Environment"            = "poc"
+          + "Name"                   = "poc-asiayo-vpc-public-us-east-1b"
+          + "Project"                = "asiayo"
+          + "Team"                   = "platform"
+          + "Tier"                   = "Public"
+          + "kubernetes.io/role/elb" = "1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[2] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.6.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Environment"            = "poc"
+          + "Name"                   = "poc-asiayo-vpc-public-us-east-1c"
+          + "Project"                = "asiayo"
+          + "Team"                   = "platform"
+          + "Tier"                   = "Public"
+          + "kubernetes.io/role/elb" = "1"
+        }
+      + tags_all                                       = {
+          + "Environment"            = "poc"
+          + "Name"                   = "poc-asiayo-vpc-public-us-east-1c"
+          + "Project"                = "asiayo"
+          + "Team"                   = "platform"
+          + "Tier"                   = "Public"
+          + "kubernetes.io/role/elb" = "1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_vpc.this[0] will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all                             = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-vpc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+    }
+
+  # module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0] will be created
+  + resource "aws_eks_node_group" "this" {
+      + ami_type               = "BOTTLEROCKET_ARM_64"
+      + arn                    = (known after apply)
+      + capacity_type          = "ON_DEMAND"
+      + cluster_name           = "poc-asiayo-eks-cluster"
+      + disk_size              = (known after apply)
+      + id                     = (known after apply)
+      + instance_types         = [
+          + "t4g.medium",
+        ]
+      + node_group_name        = (known after apply)
+      + node_group_name_prefix = "poc-asiayo-node-group-"
+      + node_role_arn          = (known after apply)
+      + release_version        = (known after apply)
+      + resources              = (known after apply)
+      + status                 = (known after apply)
+      + subnet_ids             = (known after apply)
+      + tags                   = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-node-group"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all               = {
+          + "Environment" = "poc"
+          + "Name"        = "poc-asiayo-node-group"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + version                = "1.31"
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + scaling_config {
+          + desired_size = 2
+          + max_size     = 4
+          + min_size     = 2
+        }
+
+      + timeouts {}
+
+      + update_config {
+          + max_unavailable_percentage = 33
+        }
+    }
+
+  # module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role.this[0] will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                      + Sid       = "EKSNodeAssumeRole"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + description           = "EKS managed node group IAM role"
+      + force_detach_policies = true
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "poc-asiayo-node-group-eks-node-group-"
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all              = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + unique_id             = (known after apply)
+    }
+
+  # module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = (known after apply)
+    }
+
+  # module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+      + role       = (known after apply)
+    }
+
+  # module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+      + role       = (known after apply)
+    }
+
+  # module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_launch_template.this[0] will be created
+  + resource "aws_launch_template" "this" {
+      + arn                    = (known after apply)
+      + default_version        = (known after apply)
+      + description            = "Custom launch template for poc-asiayo-node-group EKS managed node group"
+      + id                     = (known after apply)
+      + latest_version         = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "bottlerocket_arm-"
+      + tags                   = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all               = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + update_default_version = true
+      + vpc_security_group_ids = (known after apply)
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = 2
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + monitoring {
+          + enabled = true
+        }
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "Environment" = "poc"
+              + "Name"        = "poc-asiayo-node-group"
+              + "Project"     = "asiayo"
+              + "Team"        = "platform"
+            }
+        }
+      + tag_specifications {
+          + resource_type = "network-interface"
+          + tags          = {
+              + "Environment" = "poc"
+              + "Name"        = "poc-asiayo-node-group"
+              + "Project"     = "asiayo"
+              + "Team"        = "platform"
+            }
+        }
+      + tag_specifications {
+          + resource_type = "volume"
+          + tags          = {
+              + "Environment" = "poc"
+              + "Name"        = "poc-asiayo-node-group"
+              + "Project"     = "asiayo"
+              + "Team"        = "platform"
+            }
+        }
+    }
+
+  # module.eks.module.kms.data.aws_iam_policy_document.this[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "this" {
+      + id                        = (known after apply)
+      + json                      = (known after apply)
+      + minified_json             = (known after apply)
+      + override_policy_documents = []
+      + source_policy_documents   = []
+
+      + statement {
+          + actions   = [
+              + "kms:CancelKeyDeletion",
+              + "kms:Create*",
+              + "kms:Delete*",
+              + "kms:Describe*",
+              + "kms:Disable*",
+              + "kms:Enable*",
+              + "kms:Get*",
+              + "kms:ImportKeyMaterial",
+              + "kms:List*",
+              + "kms:Put*",
+              + "kms:ReplicateKey",
+              + "kms:Revoke*",
+              + "kms:ScheduleKeyDeletion",
+              + "kms:TagResource",
+              + "kms:UntagResource",
+              + "kms:Update*",
+            ]
+          + resources = [
+              + "*",
+            ]
+          + sid       = "KeyAdministration"
+
+          + principals {
+              + identifiers = [
+                  + "arn:aws:iam::969891756697:user/kouni",
+                ]
+              + type        = "AWS"
+            }
+        }
+      + statement {
+          + actions   = [
+              + "kms:Decrypt",
+              + "kms:DescribeKey",
+              + "kms:Encrypt",
+              + "kms:GenerateDataKey*",
+              + "kms:ReEncrypt*",
+            ]
+          + resources = [
+              + "*",
+            ]
+          + sid       = "KeyUsage"
+
+          + principals {
+              + identifiers = [
+                  + (known after apply),
+                ]
+              + type        = "AWS"
+            }
+        }
+    }
+
+  # module.eks.module.kms.aws_kms_alias.this["cluster"] will be created
+  + resource "aws_kms_alias" "this" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/eks/poc-asiayo-eks-cluster"
+      + name_prefix    = (known after apply)
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # module.eks.module.kms.aws_kms_key.this[0] will be created
+  + resource "aws_kms_key" "this" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + description                        = "poc-asiayo-eks-cluster cluster encryption key"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = false
+      + policy                             = (known after apply)
+      + rotation_period_in_days            = (known after apply)
+      + tags                               = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all                           = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+    }
+
+Plan: 63 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Argument is deprecated
+│
+│   with module.eks.aws_iam_role.this[0],
+│   on .terraform/modules/eks/main.tf line 293, in resource "aws_iam_role" "this":
+│  293: resource "aws_iam_role" "this" {
+│
+│ The inline_policy argument is deprecated. Use the aws_iam_role_policy resource instead. If Terraform should exclusively manage all inline policy associations (the current behavior of this argument), use the aws_iam_role_policies_exclusive resource as well.
+╵
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: ./tf_out/tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "./tf_out/tfplan"
+
+$ terraform apply "./tf_out/tfplan"
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role.this[0]: Creating...
+module.eks.aws_cloudwatch_log_group.this[0]: Creating...
+module.eks.aws_iam_role.this[0]: Creating...
+module.vpc.aws_vpc.this[0]: Creating...
+module.eks.aws_cloudwatch_log_group.this[0]: Creation complete after 2s [id=/aws/eks/poc-asiayo-eks-cluster/cluster]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role.this[0]: Creation complete after 2s [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Creating...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Creating...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Creating...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Creation complete after 1s [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732233300000003]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Creation complete after 1s [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732314300000004]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Creation complete after 1s [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732522700000005]
+module.eks.aws_iam_role.this[0]: Creation complete after 3s [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Creating...
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSVPCResourceController"]: Creating...
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Reading...
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=4018448942]
+module.eks.module.kms.aws_kms_key.this[0]: Creating...
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Creation complete after 0s [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733164200000007]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSVPCResourceController"]: Creation complete after 0s [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733161500000006]
+module.vpc.aws_vpc.this[0]: Still creating... [10s elapsed]
+module.eks.module.kms.aws_kms_key.this[0]: Still creating... [10s elapsed]
+module.vpc.aws_vpc.this[0]: Creation complete after 15s [id=vpc-06d1945001cf20bde]
+module.vpc.aws_internet_gateway.this[0]: Creating...
+module.vpc.aws_default_route_table.default[0]: Creating...
+module.vpc.aws_route_table.public[0]: Creating...
+module.vpc.aws_default_security_group.this[0]: Creating...
+module.vpc.aws_subnet.intra[1]: Creating...
+module.vpc.aws_subnet.public[1]: Creating...
+module.vpc.aws_subnet.private[0]: Creating...
+module.vpc.aws_subnet.private[1]: Creating...
+module.vpc.aws_default_network_acl.this[0]: Creating...
+module.vpc.aws_default_route_table.default[0]: Creation complete after 1s [id=rtb-05c41c7d1ae2a32ce]
+module.vpc.aws_subnet.intra[2]: Creating...
+module.vpc.aws_internet_gateway.this[0]: Creation complete after 1s [id=igw-063b7792bbe6e9b90]
+module.vpc.aws_subnet.public[0]: Creating...
+module.vpc.aws_subnet.intra[1]: Creation complete after 2s [id=subnet-0df9400eee4243d28]
+module.vpc.aws_subnet.private[0]: Creation complete after 2s [id=subnet-005e25bed9ce880e0]
+module.vpc.aws_subnet.private[1]: Creation complete after 2s [id=subnet-0dd7a0c776759048c]
+module.vpc.aws_route_table.intra[0]: Creating...
+module.vpc.aws_subnet.intra[0]: Creating...
+module.vpc.aws_subnet.private[2]: Creating...
+module.vpc.aws_subnet.public[1]: Creation complete after 2s [id=subnet-05fb3acbf239bf49f]
+module.vpc.aws_route_table.private[0]: Creating...
+module.vpc.aws_route_table.public[0]: Creation complete after 2s [id=rtb-0db76009c91b61de9]
+module.vpc.aws_subnet.public[2]: Creating...
+module.vpc.aws_subnet.intra[2]: Creation complete after 1s [id=subnet-0638f7fd198e6bd21]
+module.vpc.aws_eip.nat[0]: Creating...
+module.vpc.aws_subnet.public[0]: Creation complete after 2s [id=subnet-0680eeeb835ae7bf8]
+module.eks.aws_security_group.cluster[0]: Creating...
+module.vpc.aws_subnet.private[2]: Creation complete after 1s [id=subnet-0ea44a2e18d91cb1b]
+module.eks.aws_security_group.node[0]: Creating...
+module.vpc.aws_subnet.intra[0]: Creation complete after 1s [id=subnet-0ce5d5ff7b0459d51]
+module.vpc.aws_route.public_internet_gateway[0]: Creating...
+module.vpc.aws_subnet.public[2]: Creation complete after 1s [id=subnet-0c666bc73ffce236e]
+module.vpc.aws_route_table_association.public[2]: Creating...
+module.vpc.aws_route_table.intra[0]: Creation complete after 1s [id=rtb-065e33bdaaea8e6d9]
+module.vpc.aws_route_table_association.public[1]: Creating...
+module.vpc.aws_route_table.private[0]: Creation complete after 1s [id=rtb-06d4b066f300ae343]
+module.vpc.aws_route_table_association.public[0]: Creating...
+module.vpc.aws_default_security_group.this[0]: Creation complete after 3s [id=sg-0edad4c86ecd2b6c8]
+module.vpc.aws_route_table_association.intra[0]: Creating...
+module.vpc.aws_default_network_acl.this[0]: Creation complete after 3s [id=acl-09f40282dfe663bcd]
+module.vpc.aws_route_table_association.intra[2]: Creating...
+module.vpc.aws_eip.nat[0]: Creation complete after 2s [id=eipalloc-09e3f30d6b75743a0]
+module.vpc.aws_route_table_association.intra[1]: Creating...
+module.vpc.aws_route_table_association.public[2]: Creation complete after 1s [id=rtbassoc-0395254f1cc479f95]
+module.vpc.aws_route_table_association.public[1]: Creation complete after 1s [id=rtbassoc-09f10aa3fa5a18b81]
+module.vpc.aws_route_table_association.private[1]: Creating...
+module.vpc.aws_route_table_association.private[2]: Creating...
+module.vpc.aws_route_table_association.public[0]: Creation complete after 1s [id=rtbassoc-0268b2cada7ba0e97]
+module.vpc.aws_route_table_association.private[0]: Creating...
+module.vpc.aws_route_table_association.intra[0]: Creation complete after 1s [id=rtbassoc-04150024e98f12164]
+module.vpc.aws_nat_gateway.this[0]: Creating...
+module.vpc.aws_route_table_association.intra[2]: Creation complete after 1s [id=rtbassoc-03f7df4710968f7b7]
+module.vpc.aws_route.public_internet_gateway[0]: Creation complete after 1s [id=r-rtb-0db76009c91b61de91080289494]
+module.vpc.aws_route_table_association.intra[1]: Creation complete after 1s [id=rtbassoc-0ea149aa4ff65ab4c]
+module.vpc.aws_route_table_association.private[2]: Creation complete after 1s [id=rtbassoc-0944077ed9cb1e0d8]
+module.vpc.aws_route_table_association.private[1]: Creation complete after 1s [id=rtbassoc-0d9124170201bf013]
+module.vpc.aws_route_table_association.private[0]: Creation complete after 1s [id=rtbassoc-0a0ee70e2880a0c0e]
+module.eks.aws_security_group.cluster[0]: Creation complete after 2s [id=sg-00684ab50ef8af392]
+module.eks.aws_security_group.node[0]: Creation complete after 3s [id=sg-04cdf6b319072b303]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Creation complete after 1s [id=sgrule-330584484]
+module.eks.aws_security_group_rule.node["egress_all"]: Creating...
+module.eks.module.kms.aws_kms_key.this[0]: Still creating... [20s elapsed]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Creation complete after 2s [id=sgrule-4032421609]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Creation complete after 3s [id=sgrule-3085693515]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Creating...
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Creation complete after 4s [id=sgrule-2275725571]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Creation complete after 1s [id=sgrule-3473635680]
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Creation complete after 5s [id=sgrule-1323742869]
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Creation complete after 6s [id=sgrule-3510895862]
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Creation complete after 7s [id=sgrule-2499341602]
+module.eks.module.kms.aws_kms_key.this[0]: Creation complete after 26s [id=7f22c604-efa9-4103-b89f-38057b4b7438]
+module.eks.module.kms.aws_kms_alias.this["cluster"]: Creating...
+module.eks.aws_iam_policy.cluster_encryption[0]: Creating...
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Creation complete after 8s [id=sgrule-991698766]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [10s elapsed]
+module.eks.module.kms.aws_kms_alias.this["cluster"]: Creation complete after 0s [id=alias/eks/poc-asiayo-eks-cluster]
+module.eks.aws_iam_policy.cluster_encryption[0]: Creation complete after 1s [id=arn:aws:iam::969891756697:policy/poc-asiayo-eks-cluster-cluster-ClusterEncryption2024121905475885270000000e]
+module.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Creating...
+module.eks.aws_security_group_rule.node["egress_all"]: Creation complete after 8s [id=sgrule-785983538]
+module.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Creation complete after 0s [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-2024121905475996880000000f]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Creation complete after 8s [id=sgrule-2654934141]
+module.eks.aws_eks_cluster.this[0]: Creating...
+module.vpc.aws_nat_gateway.this[0]: Still creating... [20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [10s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [20s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [30s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [40s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [1m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [50s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [1m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [1m0s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [1m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [1m10s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [1m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [1m20s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [1m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [1m30s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Still creating... [1m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [1m40s elapsed]
+module.vpc.aws_nat_gateway.this[0]: Creation complete after 1m58s [id=nat-0ca3adbc7bdd56771]
+module.vpc.aws_route.private_nat_gateway[0]: Creating...
+module.vpc.aws_route.private_nat_gateway[0]: Creation complete after 2s [id=r-rtb-06d4b066f300ae3431080289494]
+module.eks.aws_eks_cluster.this[0]: Still creating... [1m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [2m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [2m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [2m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [2m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [2m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [2m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [3m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [3m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [3m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [3m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [3m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [3m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [4m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [4m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [4m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [4m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [4m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [4m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [5m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [5m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [5m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [5m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [5m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [5m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [6m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [6m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [6m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [6m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [6m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [6m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [7m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [7m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [7m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [7m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [7m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [7m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [8m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [8m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [8m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [8m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [8m40s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [8m50s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [9m0s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [9m10s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [9m20s elapsed]
+module.eks.aws_eks_cluster.this[0]: Still creating... [9m30s elapsed]
+module.eks.aws_eks_cluster.this[0]: Creation complete after 9m38s [id=poc-asiayo-eks-cluster]
+module.eks.data.tls_certificate.this[0]: Reading...
+module.eks.aws_ec2_tag.cluster_primary_security_group["Project"]: Creating...
+module.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Creating...
+module.eks.time_sleep.this[0]: Creating...
+module.eks.aws_ec2_tag.cluster_primary_security_group["Team"]: Creating...
+module.eks.data.tls_certificate.this[0]: Read complete after 0s [id=99d41e43229a4cdaf4141f3e8310e6d95c31dab9]
+module.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Creating...
+module.eks.aws_ec2_tag.cluster_primary_security_group["Project"]: Creation complete after 1s [id=sg-08fe0a68b71af9dc8,Project]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Team"]: Creation complete after 1s [id=sg-08fe0a68b71af9dc8,Team]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Creation complete after 1s [id=sg-08fe0a68b71af9dc8,Environment]
+module.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Creation complete after 2s [id=arn:aws:iam::969891756697:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/D82EA76AC1A35813770D1E9F0B6C8EF9]
+module.eks.time_sleep.this[0]: Still creating... [10s elapsed]
+module.eks.time_sleep.this[0]: Still creating... [20s elapsed]
+module.eks.time_sleep.this[0]: Still creating... [30s elapsed]
+module.eks.time_sleep.this[0]: Creation complete after 30s [id=2024-12-19T05:58:08Z]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_launch_template.this[0]: Creating...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_launch_template.this[0]: Creation complete after 7s [id=lt-02103e9fb5d03f190]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Creating...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Still creating... [10s elapsed]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Still creating... [20s elapsed]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Still creating... [30s elapsed]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Still creating... [40s elapsed]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Still creating... [50s elapsed]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Still creating... [1m0s elapsed]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Still creating... [1m10s elapsed]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Creation complete after 1m19s [id=poc-asiayo-eks-cluster:poc-asiayo-node-group-20241219055815671500000012]
+╷
+│ Warning: Argument is deprecated
+│
+│   with module.eks.aws_iam_role.this[0],
+│   on .terraform/modules/eks/main.tf line 293, in resource "aws_iam_role" "this":
+│  293: resource "aws_iam_role" "this" {
+│
+│ The inline_policy argument is deprecated. Use the aws_iam_role_policy resource instead. If Terraform should exclusively manage all inline policy associations (the current behavior of this argument), use the aws_iam_role_policies_exclusive resource as well.
+╵
+
+Apply complete! Resources: 63 added, 0 changed, 0 destroyed.
+
+
+$ terraform init
+
+Initializing the backend...
+Initializing modules...
+Downloading registry.terraform.io/terraform-aws-modules/iam/aws 5.48.0 for ebs_csi_irsa_role...
+- ebs_csi_irsa_role in .terraform/modules/ebs_csi_irsa_role/modules/iam-role-for-service-accounts-eks
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/time from the dependency lock file
+- Reusing previous version of hashicorp/cloudinit from the dependency lock file
+- Reusing previous version of hashicorp/kubernetes from the dependency lock file
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Reusing previous version of hashicorp/tls from the dependency lock file
+- Using previously-installed hashicorp/cloudinit v2.3.5
+- Using previously-installed hashicorp/kubernetes v2.35.0
+- Using previously-installed hashicorp/aws v5.81.0
+- Using previously-installed hashicorp/tls v4.0.6
+- Using previously-installed hashicorp/time v0.12.1
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+
+$ terraform validate
+Success! The configuration is valid.
+
+
+
+$ terraform plan -out=./tf_out/tfplan
+module.eks.data.aws_partition.current: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Reading...
+module.eks.aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/poc-asiayo-eks-cluster/cluster]
+module.ebs_csi_irsa_role.data.aws_caller_identity.current: Reading...
+module.eks.module.kms.data.aws_caller_identity.current[0]: Reading...
+module.eks.data.aws_caller_identity.current: Reading...
+module.ebs_csi_irsa_role.data.aws_partition.current: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Reading...
+module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-06d1945001cf20bde]
+module.eks.data.aws_partition.current: Read complete after 0s [id=aws]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Read complete after 0s [id=aws]
+module.ebs_csi_irsa_role.data.aws_partition.current: Read complete after 0s [id=aws]
+module.ebs_csi_irsa_role.data.aws_region.current: Reading...
+module.eks.module.kms.data.aws_partition.current[0]: Reading...
+module.ebs_csi_irsa_role.data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.eks.module.kms.data.aws_partition.current[0]: Read complete after 0s [id=aws]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2764486067]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001]
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.ebs_csi[0]: Reading...
+module.eks.aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002]
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.ebs_csi[0]: Read complete after 0s [id=435063099]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Read complete after 0s [id=969891756697]
+module.ebs_csi_irsa_role.data.aws_caller_identity.current: Read complete after 0s [id=969891756697]
+module.eks.module.kms.data.aws_caller_identity.current[0]: Read complete after 1s [id=969891756697]
+module.eks.data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.eks.data.aws_iam_session_context.current: Reading...
+module.eks.data.aws_iam_session_context.current: Read complete after 0s [id=arn:aws:iam::969891756697:user/kouni]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732314300000004]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732233300000003]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732522700000005]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733164200000007]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSVPCResourceController"]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733161500000006]
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Reading...
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=4018448942]
+module.eks.module.kms.aws_kms_key.this[0]: Refreshing state... [id=7f22c604-efa9-4103-b89f-38057b4b7438]
+module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-05c41c7d1ae2a32ce]
+module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0edad4c86ecd2b6c8]
+module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-09f40282dfe663bcd]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0680eeeb835ae7bf8]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-05fb3acbf239bf49f]
+module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-0c666bc73ffce236e]
+module.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-00684ab50ef8af392]
+module.eks.aws_security_group.node[0]: Refreshing state... [id=sg-04cdf6b319072b303]
+module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0db76009c91b61de9]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-005e25bed9ce880e0]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0dd7a0c776759048c]
+module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0ea44a2e18d91cb1b]
+module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-063b7792bbe6e9b90]
+module.vpc.aws_route_table.intra[0]: Refreshing state... [id=rtb-065e33bdaaea8e6d9]
+module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-06d4b066f300ae343]
+module.vpc.aws_subnet.intra[2]: Refreshing state... [id=subnet-0638f7fd198e6bd21]
+module.vpc.aws_subnet.intra[0]: Refreshing state... [id=subnet-0ce5d5ff7b0459d51]
+module.vpc.aws_subnet.intra[1]: Refreshing state... [id=subnet-0df9400eee4243d28]
+module.eks.module.kms.aws_kms_alias.this["cluster"]: Refreshing state... [id=alias/eks/poc-asiayo-eks-cluster]
+module.eks.aws_iam_policy.cluster_encryption[0]: Refreshing state... [id=arn:aws:iam::969891756697:policy/poc-asiayo-eks-cluster-cluster-ClusterEncryption2024121905475885270000000e]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0268b2cada7ba0e97]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-09f10aa3fa5a18b81]
+module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0395254f1cc479f95]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-3473635680]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-330584484]
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Refreshing state... [id=sgrule-991698766]
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Refreshing state... [id=sgrule-1323742869]
+module.eks.aws_security_group_rule.node["egress_all"]: Refreshing state... [id=sgrule-785983538]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Refreshing state... [id=sgrule-4032421609]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-3085693515]
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-3510895862]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-2654934141]
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Refreshing state... [id=sgrule-2275725571]
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Refreshing state... [id=sgrule-2499341602]
+module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-09e3f30d6b75743a0]
+module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0db76009c91b61de91080289494]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-0d9124170201bf013]
+module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0944077ed9cb1e0d8]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0a0ee70e2880a0c0e]
+module.vpc.aws_route_table_association.intra[0]: Refreshing state... [id=rtbassoc-04150024e98f12164]
+module.vpc.aws_route_table_association.intra[2]: Refreshing state... [id=rtbassoc-03f7df4710968f7b7]
+module.vpc.aws_route_table_association.intra[1]: Refreshing state... [id=rtbassoc-0ea149aa4ff65ab4c]
+module.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-2024121905475996880000000f]
+module.eks.aws_eks_cluster.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster]
+module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-0ca3adbc7bdd56771]
+module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-06d4b066f300ae3431080289494]
+module.eks.data.tls_certificate.this[0]: Reading...
+module.eks.aws_ec2_tag.cluster_primary_security_group["Team"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Team]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Project"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Project]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Environment]
+module.eks.time_sleep.this[0]: Refreshing state... [id=2024-12-19T05:58:08Z]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_launch_template.this[0]: Refreshing state... [id=lt-02103e9fb5d03f190]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster:poc-asiayo-node-group-20241219055815671500000012]
+module.eks.data.tls_certificate.this[0]: Read complete after 1s [id=99d41e43229a4cdaf4141f3e8310e6d95c31dab9]
+module.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Refreshing state... [id=arn:aws:iam::969891756697:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/D82EA76AC1A35813770D1E9F0B6C8EF9]
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.this[0]: Reading...
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=518541791]
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Reading...
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Read complete after 1s [id=aws-ebs-csi-driver]
+
+Note: Objects have changed outside of Terraform
+
+Terraform detected the following changes made outside of Terraform since the last "terraform apply" which may have affected this plan:
+
+  # module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0] has changed
+  ~ resource "aws_eks_node_group" "this" {
+        id                     = "poc-asiayo-eks-cluster:poc-asiayo-node-group-20241219055815671500000012"
+      + labels                 = {}
+        tags                   = {
+            "Environment" = "poc"
+            "Name"        = "poc-asiayo-node-group"
+            "Project"     = "asiayo"
+            "Team"        = "platform"
+        }
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+
+Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may include actions to undo or respond to these changes.
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.ebs_csi_irsa_role.aws_iam_policy.ebs_csi[0] will be created
+  + resource "aws_iam_policy" "ebs_csi" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Provides permissions to manage EBS volumes via the container storage interface driver"
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = "AmazonEKS_EBS_CSI_Policy-"
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "ec2:ModifyVolume",
+                          + "ec2:EnableFastSnapshotRestores",
+                          + "ec2:DetachVolume",
+                          + "ec2:DescribeVolumesModifications",
+                          + "ec2:DescribeVolumes",
+                          + "ec2:DescribeTags",
+                          + "ec2:DescribeSnapshots",
+                          + "ec2:DescribeInstances",
+                          + "ec2:DescribeAvailabilityZones",
+                          + "ec2:CreateSnapshot",
+                          + "ec2:AttachVolume",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                  + {
+                      + Action    = "ec2:CreateTags"
+                      + Condition = {
+                          + StringEquals = {
+                              + "ec2:CreateAction" = [
+                                  + "CreateVolume",
+                                  + "CreateSnapshot",
+                                ]
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = [
+                          + "arn:aws:ec2:*:*:volume/*",
+                          + "arn:aws:ec2:*:*:snapshot/*",
+                        ]
+                    },
+                  + {
+                      + Action   = "ec2:DeleteTags"
+                      + Effect   = "Allow"
+                      + Resource = [
+                          + "arn:aws:ec2:*:*:volume/*",
+                          + "arn:aws:ec2:*:*:snapshot/*",
+                        ]
+                    },
+                  + {
+                      + Action    = "ec2:CreateVolume"
+                      + Condition = {
+                          + StringLike = {
+                              + "aws:RequestTag/ebs.csi.aws.com/cluster" = "true"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "arn:aws:ec2:*:*:volume/*"
+                    },
+                  + {
+                      + Action    = "ec2:CreateVolume"
+                      + Condition = {
+                          + StringLike = {
+                              + "aws:RequestTag/CSIVolumeName" = "*"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "arn:aws:ec2:*:*:volume/*"
+                    },
+                  + {
+                      + Action    = "ec2:CreateVolume"
+                      + Condition = {
+                          + StringLike = {
+                              + "aws:RequestTag/kubernetes.io/cluster/*" = "owned"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                  + {
+                      + Action   = "ec2:CreateVolume"
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:ec2:*:*:snapshot/*"
+                    },
+                  + {
+                      + Action    = "ec2:DeleteVolume"
+                      + Condition = {
+                          + StringLike = {
+                              + "ec2:ResourceTag/ebs.csi.aws.com/cluster" = "true"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                  + {
+                      + Action    = "ec2:DeleteVolume"
+                      + Condition = {
+                          + StringLike = {
+                              + "ec2:ResourceTag/CSIVolumeName" = "*"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                  + {
+                      + Action    = "ec2:DeleteVolume"
+                      + Condition = {
+                          + StringLike = {
+                              + "ec2:ResourceTag/kubernetes.io/cluster/*" = "owned"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                  + {
+                      + Action    = "ec2:DeleteVolume"
+                      + Condition = {
+                          + StringLike = {
+                              + "ec2:ResourceTag/kubernetes.io/created-for/pvc/name" = "*"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                  + {
+                      + Action    = "ec2:DeleteSnapshot"
+                      + Condition = {
+                          + StringLike = {
+                              + "ec2:ResourceTag/CSIVolumeSnapshotName" = "*"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                  + {
+                      + Action    = "ec2:DeleteSnapshot"
+                      + Condition = {
+                          + StringLike = {
+                              + "ec2:ResourceTag/ebs.csi.aws.com/cluster" = "true"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all         = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+    }
+
+  # module.ebs_csi_irsa_role.aws_iam_role.this[0] will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRoleWithWebIdentity"
+                      + Condition = {
+                          + StringEquals = {
+                              + "oidc.eks.us-east-1.amazonaws.com/id/D82EA76AC1A35813770D1E9F0B6C8EF9:aud" = "sts.amazonaws.com"
+                              + "oidc.eks.us-east-1.amazonaws.com/id/D82EA76AC1A35813770D1E9F0B6C8EF9:sub" = "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Federated = "arn:aws:iam::969891756697:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/D82EA76AC1A35813770D1E9F0B6C8EF9"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = true
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "poc-asiayo-ebs-csi-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all              = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + unique_id             = (known after apply)
+    }
+
+  # module.ebs_csi_irsa_role.aws_iam_role_policy_attachment.ebs_csi[0] will be created
+  + resource "aws_iam_role_policy_attachment" "ebs_csi" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "poc-asiayo-ebs-csi-role"
+    }
+
+  # module.eks.aws_eks_addon.this["aws-ebs-csi-driver"] will be created
+  + resource "aws_eks_addon" "this" {
+      + addon_name               = "aws-ebs-csi-driver"
+      + addon_version            = "v1.37.0-eksbuild.1"
+      + arn                      = (known after apply)
+      + cluster_name             = "poc-asiayo-eks-cluster"
+      + configuration_values     = (known after apply)
+      + created_at               = (known after apply)
+      + id                       = (known after apply)
+      + modified_at              = (known after apply)
+      + resolve_conflicts        = "OVERWRITE"
+      + service_account_role_arn = (known after apply)
+      + tags                     = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+      + tags_all                 = {
+          + "Environment" = "poc"
+          + "Project"     = "asiayo"
+          + "Team"        = "platform"
+        }
+
+      + timeouts {}
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Argument is deprecated
+│
+│   with module.eks.aws_iam_role.this[0],
+│   on .terraform/modules/eks/main.tf line 293, in resource "aws_iam_role" "this":
+│  293: resource "aws_iam_role" "this" {
+│
+│ The inline_policy argument is deprecated. Use the aws_iam_role_policy resource instead. If Terraform should exclusively manage all inline policy associations (the current behavior of this argument), use the aws_iam_role_policies_exclusive resource as well.
+│
+│ (and one more similar warning elsewhere)
+╵
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: ./tf_out/tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "./tf_out/tfplan"
+
+
+$ terraform apply "./tf_out/tfplan"
+module.ebs_csi_irsa_role.aws_iam_role.this[0]: Creating...
+module.ebs_csi_irsa_role.aws_iam_policy.ebs_csi[0]: Creating...
+module.ebs_csi_irsa_role.aws_iam_policy.ebs_csi[0]: Creation complete after 2s [id=arn:aws:iam::969891756697:policy/AmazonEKS_EBS_CSI_Policy-20241219070712115600000001]
+module.ebs_csi_irsa_role.aws_iam_role.this[0]: Creation complete after 2s [id=poc-asiayo-ebs-csi-role]
+module.ebs_csi_irsa_role.aws_iam_role_policy_attachment.ebs_csi[0]: Creating...
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Creating...
+module.ebs_csi_irsa_role.aws_iam_role_policy_attachment.ebs_csi[0]: Creation complete after 1s [id=poc-asiayo-ebs-csi-role-20241219070714419000000003]
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Still creating... [10s elapsed]
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Still creating... [20s elapsed]
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Still creating... [30s elapsed]
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Still creating... [40s elapsed]
+^[module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Still creating... [50s elapsed]
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Creation complete after 58s [id=poc-asiayo-eks-cluster:aws-ebs-csi-driver]
+╷
+│ Warning: Argument is deprecated
+│
+│   with module.eks.aws_eks_addon.this["aws-ebs-csi-driver"],
+│   on .terraform/modules/eks/main.tf line 400, in resource "aws_eks_addon" "this":
+│  400:   resolve_conflicts        = try(each.value.resolve_conflicts, "OVERWRITE")
+│
+│ The "resolve_conflicts" attribute can't be set to "PRESERVE" on initial resource creation. Use "resolve_conflicts_on_create" and/or "resolve_conflicts_on_update" instead
+╵
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+
+$ terraform plan -out=./tf_out/tfplan
+module.eks.data.aws_caller_identity.current: Reading...
+module.eks.module.kms.data.aws_caller_identity.current[0]: Reading...
+module.ebs_csi_irsa_role.data.aws_region.current: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Reading...
+module.eks.aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/poc-asiayo-eks-cluster/cluster]
+module.ebs_csi_irsa_role.data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.ebs_csi_irsa_role.data.aws_caller_identity.current: Reading...
+module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-06d1945001cf20bde]
+module.lb_role.data.aws_caller_identity.current: Reading...
+module.eks.module.kms.data.aws_partition.current[0]: Reading...
+module.lb_role.data.aws_partition.current: Reading...
+module.eks.module.kms.data.aws_partition.current[0]: Read complete after 0s [id=aws]
+module.lb_role.data.aws_partition.current: Read complete after 0s [id=aws]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Reading...
+module.ebs_csi_irsa_role.data.aws_partition.current: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Read complete after 0s [id=aws]
+module.ebs_csi_irsa_role.data.aws_partition.current: Read complete after 0s [id=aws]
+module.lb_role.data.aws_region.current: Reading...
+module.eks.data.aws_partition.current: Reading...
+aws_iam_policy.aws_load_balancer_controller: Refreshing state... [id=arn:aws:iam::969891756697:policy/poc-asiayo-aws-load-balancer-controller]
+module.eks.data.aws_partition.current: Read complete after 0s [id=aws]
+module.lb_role.data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.ebs_csi[0]: Reading...
+module.lb_role.data.aws_iam_policy_document.load_balancer_controller[0]: Reading...
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.ebs_csi[0]: Read complete after 0s [id=435063099]
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2764486067]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001]
+module.lb_role.data.aws_iam_policy_document.load_balancer_controller[0]: Read complete after 0s [id=3921743575]
+module.ebs_csi_irsa_role.aws_iam_policy.ebs_csi[0]: Refreshing state... [id=arn:aws:iam::969891756697:policy/AmazonEKS_EBS_CSI_Policy-20241219070712115600000001]
+module.eks.module.kms.data.aws_caller_identity.current[0]: Read complete after 0s [id=969891756697]
+module.eks.aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002]
+module.eks.data.aws_caller_identity.current: Read complete after 0s [id=969891756697]
+module.lb_role.aws_iam_policy.load_balancer_controller[0]: Refreshing state... [id=arn:aws:iam::969891756697:policy/AmazonEKS_AWS_Load_Balancer_Controller-20241219082024801300000001]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.eks.data.aws_iam_session_context.current: Reading...
+module.eks.data.aws_iam_session_context.current: Read complete after 0s [id=arn:aws:iam::969891756697:user/kouni]
+module.lb_role.data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.ebs_csi_irsa_role.data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732522700000005]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732233300000003]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732314300000004]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733164200000007]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSVPCResourceController"]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733161500000006]
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Reading...
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=4018448942]
+module.eks.module.kms.aws_kms_key.this[0]: Refreshing state... [id=7f22c604-efa9-4103-b89f-38057b4b7438]
+module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-05c41c7d1ae2a32ce]
+module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0edad4c86ecd2b6c8]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-05fb3acbf239bf49f]
+module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0db76009c91b61de9]
+module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-09f40282dfe663bcd]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0680eeeb835ae7bf8]
+module.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-00684ab50ef8af392]
+module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-0c666bc73ffce236e]
+module.eks.aws_security_group.node[0]: Refreshing state... [id=sg-04cdf6b319072b303]
+module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-063b7792bbe6e9b90]
+module.vpc.aws_subnet.intra[0]: Refreshing state... [id=subnet-0ce5d5ff7b0459d51]
+module.vpc.aws_subnet.intra[1]: Refreshing state... [id=subnet-0df9400eee4243d28]
+module.vpc.aws_subnet.intra[2]: Refreshing state... [id=subnet-0638f7fd198e6bd21]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-005e25bed9ce880e0]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0dd7a0c776759048c]
+module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0ea44a2e18d91cb1b]
+module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-06d4b066f300ae343]
+module.vpc.aws_route_table.intra[0]: Refreshing state... [id=rtb-065e33bdaaea8e6d9]
+module.eks.module.kms.aws_kms_alias.this["cluster"]: Refreshing state... [id=alias/eks/poc-asiayo-eks-cluster]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0268b2cada7ba0e97]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-09f10aa3fa5a18b81]
+module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0395254f1cc479f95]
+module.eks.aws_iam_policy.cluster_encryption[0]: Refreshing state... [id=arn:aws:iam::969891756697:policy/poc-asiayo-eks-cluster-cluster-ClusterEncryption2024121905475885270000000e]
+module.eks.aws_security_group_rule.node["egress_all"]: Refreshing state... [id=sgrule-785983538]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Refreshing state... [id=sgrule-4032421609]
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Refreshing state... [id=sgrule-2275725571]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-2654934141]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-330584484]
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Refreshing state... [id=sgrule-2499341602]
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Refreshing state... [id=sgrule-1323742869]
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Refreshing state... [id=sgrule-991698766]
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-3510895862]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-3085693515]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-3473635680]
+module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0db76009c91b61de91080289494]
+module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-09e3f30d6b75743a0]
+module.vpc.aws_route_table_association.intra[1]: Refreshing state... [id=rtbassoc-0ea149aa4ff65ab4c]
+module.vpc.aws_route_table_association.intra[2]: Refreshing state... [id=rtbassoc-03f7df4710968f7b7]
+module.vpc.aws_route_table_association.intra[0]: Refreshing state... [id=rtbassoc-04150024e98f12164]
+module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0944077ed9cb1e0d8]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0a0ee70e2880a0c0e]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-0d9124170201bf013]
+module.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-2024121905475996880000000f]
+module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-0ca3adbc7bdd56771]
+module.eks.aws_eks_cluster.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster]
+module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-06d4b066f300ae3431080289494]
+data.aws_eks_cluster_auth.cluster: Reading...
+module.eks.data.tls_certificate.this[0]: Reading...
+data.aws_eks_cluster_auth.cluster: Read complete after 0s [id=poc-asiayo-eks-cluster]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Project"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Project]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Environment]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Team"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Team]
+module.eks.time_sleep.this[0]: Refreshing state... [id=2024-12-19T05:58:08Z]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_launch_template.this[0]: Refreshing state... [id=lt-02103e9fb5d03f190]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster:poc-asiayo-node-group-20241219055815671500000012]
+module.eks.data.tls_certificate.this[0]: Read complete after 0s [id=99d41e43229a4cdaf4141f3e8310e6d95c31dab9]
+module.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Refreshing state... [id=arn:aws:iam::969891756697:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/D82EA76AC1A35813770D1E9F0B6C8EF9]
+module.lb_role.data.aws_iam_policy_document.this[0]: Reading...
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.this[0]: Reading...
+module.lb_role.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=2429338702]
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=518541791]
+module.lb_role.aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-aws-load-balancer-controller]
+module.ebs_csi_irsa_role.aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-ebs-csi-role]
+module.ebs_csi_irsa_role.aws_iam_role_policy_attachment.ebs_csi[0]: Refreshing state... [id=poc-asiayo-ebs-csi-role-20241219070714419000000003]
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Reading...
+module.lb_role.aws_iam_role_policy_attachment.load_balancer_controller[0]: Refreshing state... [id=poc-asiayo-aws-load-balancer-controller-20241219082026950700000002]
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Read complete after 1s [id=aws-ebs-csi-driver]
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Refreshing state... [id=poc-asiayo-eks-cluster:aws-ebs-csi-driver]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # helm_release.aws_load_balancer_controller will be created
+  + resource "helm_release" "aws_load_balancer_controller" {
+      + atomic                     = false
+      + chart                      = "aws-load-balancer-controller"
+      + cleanup_on_fail            = false
+      + create_namespace           = false
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "aws-load-balancer-controller"
+      + namespace                  = "kube-system"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://aws.github.io/eks-charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + verify                     = false
+      + version                    = "1.11.0"
+      + wait                       = true
+      + wait_for_jobs              = false
+
+      + set {
+          + name  = "clusterName"
+          + value = "poc-asiayo-eks-cluster"
+        }
+      + set {
+          + name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+          + value = "arn:aws:iam::969891756697:role/poc-asiayo-aws-load-balancer-controller"
+        }
+      + set {
+          + name  = "serviceAccount.create"
+          + value = "true"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Argument is deprecated
+│
+│   with module.eks.aws_iam_role.this[0],
+│   on .terraform/modules/eks/main.tf line 293, in resource "aws_iam_role" "this":
+│  293: resource "aws_iam_role" "this" {
+│
+│ The inline_policy argument is deprecated. Use the aws_iam_role_policy resource instead. If Terraform should exclusively manage all inline policy associations (the current behavior of this argument), use the aws_iam_role_policies_exclusive resource as well.
+│
+│ (and one more similar warning elsewhere)
+╵
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: ./tf_out/tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "./tf_out/tfplan"
+(file-upload-service-py3.13) X [/Users/kouni/project/Kouni/interview/AsiaYo/pre-assessment/綜合應用測驗/Problem2/aws-eks-ha-tf] -kouni-
+$ terraform apply "./tf_out/tfplan"
+helm_release.aws_load_balancer_controller: Creating...
+helm_release.aws_load_balancer_controller: Still creating... [10s elapsed]
+╷
+│ Error: Unable to continue with install: IngressClass "alb" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by": must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name": must be set to "aws-load-balancer-controller"; annotation validation error: missing key "meta.helm.sh/release-namespace": must be set to "kube-system"
+│
+│   with helm_release.aws_load_balancer_controller,
+│   on main.tf line 200, in resource "helm_release" "aws_load_balancer_controller":
+│  200: resource "helm_release" "aws_load_balancer_controller" {
+│
+╵
+
+
+$ terraform apply "./tf_out/tfplan"
+╷
+│ Error: Saved plan is stale
+│
+│ The given plan file can no longer be applied because the state was changed by another operation after the plan was created.
+╵
+
+
+$ terraform plan -out=./tf_out/tfplan
+module.ebs_csi_irsa_role.data.aws_caller_identity.current: Reading...
+module.eks.data.aws_partition.current: Reading...
+module.ebs_csi_irsa_role.data.aws_partition.current: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Reading...
+module.lb_role.data.aws_caller_identity.current: Reading...
+module.ebs_csi_irsa_role.data.aws_region.current: Reading...
+module.eks.module.kms.data.aws_caller_identity.current[0]: Reading...
+module.eks.data.aws_partition.current: Read complete after 0s [id=aws]
+module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-06d1945001cf20bde]
+module.ebs_csi_irsa_role.data.aws_partition.current: Read complete after 0s [id=aws]
+module.lb_role.data.aws_partition.current: Reading...
+module.ebs_csi_irsa_role.data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_partition.current: Read complete after 0s [id=aws]
+aws_iam_policy.aws_load_balancer_controller: Refreshing state... [id=arn:aws:iam::969891756697:policy/poc-asiayo-aws-load-balancer-controller]
+module.lb_role.data.aws_partition.current: Read complete after 0s [id=aws]
+module.eks.aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/poc-asiayo-eks-cluster/cluster]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Reading...
+module.eks.data.aws_caller_identity.current: Reading...
+module.eks.module.kms.data.aws_partition.current[0]: Reading...
+module.eks.module.kms.data.aws_partition.current[0]: Read complete after 0s [id=aws]
+module.lb_role.data.aws_region.current: Reading...
+module.lb_role.data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2764486067]
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.ebs_csi[0]: Reading...
+module.lb_role.data.aws_iam_policy_document.load_balancer_controller[0]: Reading...
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.ebs_csi[0]: Read complete after 0s [id=435063099]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001]
+module.lb_role.data.aws_iam_policy_document.load_balancer_controller[0]: Read complete after 0s [id=3921743575]
+module.eks.aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002]
+module.ebs_csi_irsa_role.data.aws_caller_identity.current: Read complete after 0s [id=969891756697]
+module.ebs_csi_irsa_role.aws_iam_policy.ebs_csi[0]: Refreshing state... [id=arn:aws:iam::969891756697:policy/AmazonEKS_EBS_CSI_Policy-20241219070712115600000001]
+module.eks.module.kms.data.aws_caller_identity.current[0]: Read complete after 0s [id=969891756697]
+module.lb_role.aws_iam_policy.load_balancer_controller[0]: Refreshing state... [id=arn:aws:iam::969891756697:policy/AmazonEKS_AWS_Load_Balancer_Controller-20241219082024801300000001]
+module.lb_role.data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.eks.data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.eks.data.aws_iam_session_context.current: Reading...
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].data.aws_caller_identity.current: Read complete after 1s [id=969891756697]
+module.eks.data.aws_iam_session_context.current: Read complete after 0s [id=arn:aws:iam::969891756697:user/kouni]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732522700000005]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732233300000003]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_iam_role_policy_attachment.this["arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=poc-asiayo-node-group-eks-node-group-20241219054730153100000001-20241219054732314300000004]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSVPCResourceController"]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733161500000006]
+module.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-20241219054733164200000007]
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Reading...
+module.eks.module.kms.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=4018448942]
+module.eks.module.kms.aws_kms_key.this[0]: Refreshing state... [id=7f22c604-efa9-4103-b89f-38057b4b7438]
+module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-05c41c7d1ae2a32ce]
+module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0edad4c86ecd2b6c8]
+module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-09f40282dfe663bcd]
+module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-063b7792bbe6e9b90]
+module.vpc.aws_subnet.intra[1]: Refreshing state... [id=subnet-0df9400eee4243d28]
+module.vpc.aws_subnet.intra[0]: Refreshing state... [id=subnet-0ce5d5ff7b0459d51]
+module.vpc.aws_subnet.intra[2]: Refreshing state... [id=subnet-0638f7fd198e6bd21]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-005e25bed9ce880e0]
+module.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-0ea44a2e18d91cb1b]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0dd7a0c776759048c]
+module.eks.aws_security_group.node[0]: Refreshing state... [id=sg-04cdf6b319072b303]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0680eeeb835ae7bf8]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-05fb3acbf239bf49f]
+module.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-0c666bc73ffce236e]
+module.vpc.aws_route_table.intra[0]: Refreshing state... [id=rtb-065e33bdaaea8e6d9]
+module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-06d4b066f300ae343]
+module.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-00684ab50ef8af392]
+module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0db76009c91b61de9]
+module.eks.module.kms.aws_kms_alias.this["cluster"]: Refreshing state... [id=alias/eks/poc-asiayo-eks-cluster]
+module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-09e3f30d6b75743a0]
+module.eks.aws_iam_policy.cluster_encryption[0]: Refreshing state... [id=arn:aws:iam::969891756697:policy/poc-asiayo-eks-cluster-cluster-ClusterEncryption2024121905475885270000000e]
+module.eks.aws_security_group_rule.node["egress_all"]: Refreshing state... [id=sgrule-785983538]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-3473635680]
+module.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Refreshing state... [id=sgrule-2275725571]
+module.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Refreshing state... [id=sgrule-4032421609]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-330584484]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-3085693515]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-2654934141]
+module.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Refreshing state... [id=sgrule-1323742869]
+module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0db76009c91b61de91080289494]
+module.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Refreshing state... [id=sgrule-2499341602]
+module.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Refreshing state... [id=sgrule-991698766]
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-3510895862]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0a0ee70e2880a0c0e]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-0d9124170201bf013]
+module.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-0944077ed9cb1e0d8]
+module.vpc.aws_route_table_association.intra[0]: Refreshing state... [id=rtbassoc-04150024e98f12164]
+module.vpc.aws_route_table_association.intra[1]: Refreshing state... [id=rtbassoc-0ea149aa4ff65ab4c]
+module.vpc.aws_route_table_association.intra[2]: Refreshing state... [id=rtbassoc-03f7df4710968f7b7]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-09f10aa3fa5a18b81]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0268b2cada7ba0e97]
+module.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0395254f1cc479f95]
+module.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Refreshing state... [id=poc-asiayo-eks-cluster-cluster-20241219054730154400000002-2024121905475996880000000f]
+module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-0ca3adbc7bdd56771]
+module.eks.aws_eks_cluster.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster]
+module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-06d4b066f300ae3431080289494]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Project"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Project]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Environment]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Team"]: Refreshing state... [id=sg-08fe0a68b71af9dc8,Team]
+data.aws_eks_cluster_auth.cluster: Reading...
+module.eks.time_sleep.this[0]: Refreshing state... [id=2024-12-19T05:58:08Z]
+module.eks.data.tls_certificate.this[0]: Reading...
+data.aws_eks_cluster_auth.cluster: Read complete after 0s [id=poc-asiayo-eks-cluster]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_launch_template.this[0]: Refreshing state... [id=lt-02103e9fb5d03f190]
+module.eks.module.eks_managed_node_group["bottlerocket_arm"].aws_eks_node_group.this[0]: Refreshing state... [id=poc-asiayo-eks-cluster:poc-asiayo-node-group-20241219055815671500000012]
+module.eks.data.tls_certificate.this[0]: Read complete after 1s [id=99d41e43229a4cdaf4141f3e8310e6d95c31dab9]
+module.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Refreshing state... [id=arn:aws:iam::969891756697:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/D82EA76AC1A35813770D1E9F0B6C8EF9]
+module.lb_role.data.aws_iam_policy_document.this[0]: Reading...
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.this[0]: Reading...
+module.lb_role.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=2429338702]
+module.ebs_csi_irsa_role.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=518541791]
+module.ebs_csi_irsa_role.aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-ebs-csi-role]
+module.lb_role.aws_iam_role.this[0]: Refreshing state... [id=poc-asiayo-aws-load-balancer-controller]
+module.lb_role.aws_iam_role_policy_attachment.load_balancer_controller[0]: Refreshing state... [id=poc-asiayo-aws-load-balancer-controller-20241219082026950700000002]
+module.ebs_csi_irsa_role.aws_iam_role_policy_attachment.ebs_csi[0]: Refreshing state... [id=poc-asiayo-ebs-csi-role-20241219070714419000000003]
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Reading...
+module.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Read complete after 0s [id=aws-ebs-csi-driver]
+module.eks.aws_eks_addon.this["aws-ebs-csi-driver"]: Refreshing state... [id=poc-asiayo-eks-cluster:aws-ebs-csi-driver]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # helm_release.aws_load_balancer_controller will be created
+  + resource "helm_release" "aws_load_balancer_controller" {
+      + atomic                     = false
+      + chart                      = "aws-load-balancer-controller"
+      + cleanup_on_fail            = false
+      + create_namespace           = false
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "aws-load-balancer-controller"
+      + namespace                  = "kube-system"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://aws.github.io/eks-charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + verify                     = false
+      + version                    = "1.11.0"
+      + wait                       = true
+      + wait_for_jobs              = false
+
+      + set {
+          + name  = "clusterName"
+          + value = "poc-asiayo-eks-cluster"
+        }
+      + set {
+          + name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+          + value = "arn:aws:iam::969891756697:role/poc-asiayo-aws-load-balancer-controller"
+        }
+      + set {
+          + name  = "serviceAccount.create"
+          + value = "true"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+╷
+│ Warning: Argument is deprecated
+│
+│   with module.eks.aws_iam_role.this[0],
+│   on .terraform/modules/eks/main.tf line 293, in resource "aws_iam_role" "this":
+│  293: resource "aws_iam_role" "this" {
+│
+│ The inline_policy argument is deprecated. Use the aws_iam_role_policy resource instead. If Terraform should exclusively manage all inline policy associations (the current behavior of this argument), use the aws_iam_role_policies_exclusive resource as well.
+│
+│ (and one more similar warning elsewhere)
+╵
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: ./tf_out/tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "./tf_out/tfplan"
+(file-upload-service-py3.13) X [/Users/kouni/project/Kouni/interview/AsiaYo/pre-assessment/綜合應用測驗/Problem2/aws-eks-ha-tf] -kouni-
+$ terraform apply "./tf_out/tfplan"
+helm_release.aws_load_balancer_controller: Creating...
+helm_release.aws_load_balancer_controller: Still creating... [10s elapsed]
+helm_release.aws_load_balancer_controller: Still creating... [20s elapsed]
+helm_release.aws_load_balancer_controller: Still creating... [30s elapsed]
+helm_release.aws_load_balancer_controller: Still creating... [40s elapsed]
+helm_release.aws_load_balancer_controller: Creation complete after 42s [id=aws-load-balancer-controller]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+(file-upload-service-py3.13) X [/Users/kouni/project/Kouni/interview/AsiaYo/pre-assessment/綜合應用測驗/Problem2/aws-eks-ha-tf] -kouni-
+$

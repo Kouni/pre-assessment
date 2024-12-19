@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-asiayo-web
+  namespace: asiayo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-asiayo-web
+  template:
+    metadata:
+      labels:
+        app: poc-asiayo-web
+    spec:
+      initContainers:
+        - name: init-html
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              mkdir -p /usr/share/nginx/html
+              echo "Welcome to POC ASIAYO" > /usr/share/nginx/html/index.html
+              chown -R 101:101 /usr/share/nginx/html
+          volumeMounts:
+            - name: web-content
+              mountPath: /usr/share/nginx/html
+      containers:
+        - name: nginx
+          image: nginx:1.21
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: web-content
+              mountPath: /usr/share/nginx/html
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+      volumes:
+        - name: web-content
+          persistentVolumeClaim:
+            claimName: poc-asiayo-pvc

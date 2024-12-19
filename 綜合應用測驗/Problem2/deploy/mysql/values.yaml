@@ -1,0 +1,48 @@
+global:
+  storageClass: "poc-asiayo-gp3"
+
+nameOverride: "poc-asiayo-mysql"
+fullnameOverride: "poc-asiayo-mysql"
+
+architecture: replication
+
+auth:
+  rootPassword: "POCpwd5566!"
+  database: asiayo
+  username: asiayo
+  password: "dbpassword!"
+
+primary:
+  name: writer
+  persistence:
+    enabled: true
+    storageClass: "poc-asiayo-gp3"
+    size: 2Gi
+  service:
+    type: ClusterIP
+    port: 3306
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+
+secondary:
+  name: reader
+  replicaCount: 1
+  persistence:
+    enabled: true
+    storageClass: "poc-asiayo-gp3"
+    size: 2Gi
+  service:
+    type: ClusterIP
+    port: 3306
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
