@@ -8,7 +8,7 @@
 
 1. 參照 Terraform Best Practices 來規劃可續用維護的目錄結構
 2. Multi-AZ 的 EKS cluster，並有兩個的 worker node，來滿足最小基本高可用需求
-3. 所有資源上 tag 友善後續續維護以及分帳
+3. 所有資源上 tag 友善後續維護以及分帳
 4. 完整 VPC 規劃(public/private/Isolate)
 5. AutoScaling
 6. EBS CSI addon
