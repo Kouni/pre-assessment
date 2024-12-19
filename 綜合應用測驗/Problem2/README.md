@@ -38,7 +38,7 @@ $ terraform apply "./tf_out/tfplan"
 
 - 尚未有更複雜需求以前先不 Overengineering
 - 透過 helm 建立一個 architecture 為 replication 的 MySQL
-- 支援讀且分離
+- 支援讀寫分離
 - 2GB storage(using sc)
 
 #### Quick Reference Guide
