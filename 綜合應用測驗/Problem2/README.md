@@ -76,9 +76,6 @@ $ helm upgrade --install poc-mysql bitnami/mysql \
 
 In PATH: deploy/manifest/
 ```bash
-$ kubectl --namespace asiayo apply -f ingressclass.yaml
-ingressclass.networking.k8s.io/alb created
-
 $ kubectl apply -f sc.yaml
 storageclass.storage.k8s.io/poc-asiayo-sc created
 
